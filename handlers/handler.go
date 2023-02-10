@@ -8,6 +8,7 @@ import (
 	"github.com/skip2/go-qrcode"
 	"log"
 	"runtime"
+	"time"
 )
 
 // MessageHandlerInterface 消息处理接口
@@ -48,7 +49,13 @@ func init() {
 
 // Handler 全局处理入口
 func Handler(msg *openwechat.Message) {
-	log.Printf("hadler Received msg : %v", msg.Content)
+	log.Printf("hadler Received msg[type:%d]: %v\n", msg.MsgType, msg.Content)
+
+	// 过期消息不处理
+	if time.Now().Unix()-msg.CreateTime > 120 {
+		return
+	}
+
 	// 处理群消息
 	if msg.IsSendByGroup() {
 		handlers[GroupHandler].handle(msg)

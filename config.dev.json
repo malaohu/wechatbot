@@ -1,5 +1,6 @@
 {
   "api_key": "your api key",
   "auto_pass": true,
-  "session_timeout": 60
+  "session_timeout": 60,
+  "ignore_my_self": true
 }

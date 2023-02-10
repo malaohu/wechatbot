@@ -16,6 +16,12 @@ type Configuration struct {
 	AutoPass bool `json:"auto_pass"`
 	// 会话超时时间
 	SessionTimeout time.Duration `json:"session_timeout"`
+	// 白名单
+	WhiteLists []string `json:"white_lists"`
+	// 白名单map
+	WhiteListMap map[string]struct{}
+	//是否忽略自己
+	IgnoreMySelf bool `json:"ignore_my_self"`
 }
 
 var config *Configuration
@@ -58,6 +64,10 @@ func LoadConfig() *Configuration {
 				return
 			}
 			config.SessionTimeout = duration
+		}
+
+		for _, v := range config.WhiteLists {
+			config.WhiteListMap[v] = struct{}{}
 		}
 	})
 	return config
