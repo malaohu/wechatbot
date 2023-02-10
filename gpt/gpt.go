@@ -1,4 +1,4 @@
-package gtp
+package gpt
 
 import (
 	"bytes"
